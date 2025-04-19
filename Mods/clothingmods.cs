@@ -10,7 +10,6 @@ using static MelonLoader.MelonLogger;
 using Il2CppScheduleOne.Networking;
 using Il2CppScheduleOne.PlayerScripts;
 
-
 [assembly: MelonInfo(typeof(HatMod), "Clothing", "1.0.0", "ResiK")]
 [assembly: MelonGame("TVGS", "Schedule I")]
 
@@ -26,6 +25,9 @@ public class HatMod : MelonMod
         {
             MelonLogger.Msg($"Scene Loaded: {sceneName}");
             isInitialized = true;
+
+            MelonLogger.Msg($"{Player.Local.PlayerName} ({Lobby.Instance.LocalPlayerID})");
+            
             MelonCoroutines.Start(FindListings());
         }
 
