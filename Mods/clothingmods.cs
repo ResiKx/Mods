@@ -16,12 +16,16 @@ using Il2CppScheduleOne.PlayerScripts;
 
 public class HatMod : MelonMod
 {
+    private bool isInitialized = false;
+    private GameObject hat;
+    private Quaternion desiredRotation = Quaternion.Euler(0, 90, 0);
+    
     public override void OnSceneWasInitialized(int buildIndex, string sceneName)
     {
         if (sceneName == "Main")
         {
-
             MelonLogger.Msg($"Scene Loaded: {sceneName}");
+            isInitialized = true;
             MelonCoroutines.Start(FindListings());
         }
 
@@ -42,11 +46,11 @@ public class HatMod : MelonMod
         }
 
     }
-    private GameObject hat;
-    private Quaternion desiredRotation = Quaternion.Euler(0, 90, 0); // ← customize here
 
     public override void OnLateUpdate()
     {
+        if (!isInitialized) return;
+        
         if (hat == null)
         {
             var player = GameObject.Find($"{Player.Local.PlayerName} ({Lobby.Instance.LocalPlayerID})");
